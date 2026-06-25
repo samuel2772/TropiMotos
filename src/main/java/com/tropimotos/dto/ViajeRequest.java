@@ -52,4 +52,22 @@ public class ViajeRequest {
      * Campo opcional
      */
     private String destinoTexto;
+
+    /**
+     * Distancia estimada del viaje en kilometros
+     * Campo opcional, pero debe enviarse desde el frontend cuando exista una estimacion
+     */
+    private BigDecimal distanciaKm;
+
+    /**
+     * Tiempo estimado del viaje en minutos
+     * Campo opcional, pero debe enviarse desde el frontend cuando exista una estimacion
+     */
+    private Integer tiempoEstimadoMin;
+
+    /**
+     * Tarifa calculada del viaje
+     * Campo opcional, pero debe enviarse desde el frontend cuando exista una estimacion
+     */
+    private BigDecimal tarifaCalculada;
 }

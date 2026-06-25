@@ -34,7 +34,7 @@ public class Usuario {
      * FetchType.LAZY: Carga diferida - solo trae el rol cuando se accede
      * JoinColumn: Especifica la columna de llave foranea
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_rol", nullable = false)
     private Rol rol;
 

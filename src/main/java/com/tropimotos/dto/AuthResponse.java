@@ -29,6 +29,18 @@ public class AuthResponse {
      * Identificador unico del usuario
      */
     private Integer idUsuario;
+
+    /**
+     * Identificador del chofer asociado al usuario autenticado
+     * Solo aplica cuando el rol es CHOFER
+     */
+    private Integer idChofer;
+
+    /**
+     * Identificador del vehiculo asociado al chofer autenticado
+     * Solo aplica cuando el rol es CHOFER
+     */
+    private Integer idVehiculo;
     
     /**
      * Nombre completo del usuario
@@ -59,6 +71,25 @@ public class AuthResponse {
         this.token = token;
         this.tipo = "Bearer";
         this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.email = email;
+        this.rol = rol;
+    }
+
+    public AuthResponse(
+            String token,
+            Integer idUsuario,
+            Integer idChofer,
+            Integer idVehiculo,
+            String nombre,
+            String email,
+            String rol
+    ) {
+        this.token = token;
+        this.tipo = "Bearer";
+        this.idUsuario = idUsuario;
+        this.idChofer = idChofer;
+        this.idVehiculo = idVehiculo;
         this.nombre = nombre;
         this.email = email;
         this.rol = rol;

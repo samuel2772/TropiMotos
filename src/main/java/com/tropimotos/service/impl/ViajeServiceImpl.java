@@ -123,6 +123,9 @@ public class ViajeServiceImpl implements ViajeService {
         viaje.setDestinoTexto(request.getDestinoTexto());
         viaje.setDestinoLatitud(request.getDestinoLatitud());
         viaje.setDestinoLongitud(request.getDestinoLongitud());
+        viaje.setDistanciaKm(request.getDistanciaKm());
+        viaje.setTiempoEstimadoMin(request.getTiempoEstimadoMin());
+        viaje.setTarifaCalculada(request.getTarifaCalculada());
 
         viaje = viajeRepository.save(viaje);
         return convertirADTO(viaje);

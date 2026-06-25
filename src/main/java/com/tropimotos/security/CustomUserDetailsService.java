@@ -15,8 +15,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.Locale;
 
 /**
  *@Service: Marca la clase como un componente de servicio de Spring
@@ -38,18 +40,18 @@ public class CustomUserDetailsService implements UserDetailsService {
      * @throws UsernameNotFoundException si el usuario no existe
      */
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // Busca el usuario por email
-        Usuario usuario = usuarioRepository.findByEmail(email)
+        Usuario usuario = usuarioRepository.findByEmailWithRol(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        // Crea un UserDetails de Spring Security con los datos del usuario
-        // El rol se formatea como "ROLE_NOMBRE" (ej: ROLE_CLIENTE, ROLE_CHOFER)
+        String rol = usuario.getRol().getNombre();
+        String authority = "ROLE_" + rol.trim().toUpperCase(Locale.ROOT);
+
         return new User(
-                usuario.getEmail(),  // Username es el email
-                usuario.getPassword(),  // Contrasena encriptada
-                // Lista de autoridades (roles) del usuario
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + usuario.getRol().getNombre()))
+                usuario.getEmail(),
+                usuario.getPassword(),
+                Collections.singletonList(new SimpleGrantedAuthority(authority))
         );
     }
 }
