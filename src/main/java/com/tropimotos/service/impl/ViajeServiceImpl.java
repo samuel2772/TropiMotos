@@ -49,6 +49,7 @@ public class ViajeServiceImpl implements ViajeService {
      * @return Lista de ViajeDTO con todos los viajes
      */
     @Override
+    @Transactional(readOnly = true)
     public List<ViajeDTO> listarTodos() {
         return viajeRepository.findAll().stream()
                 .map(this::convertirADTO)
@@ -62,6 +63,7 @@ public class ViajeServiceImpl implements ViajeService {
      * @return Optional con el viaje si existe
      */
     @Override
+    @Transactional(readOnly = true)
     public Optional<ViajeDTO> buscarPorId(Integer id) {
         return viajeRepository.findById(id)
                 .map(this::convertirADTO);
@@ -74,6 +76,7 @@ public class ViajeServiceImpl implements ViajeService {
      * @return Lista de viajes del usuario
      */
     @Override
+    @Transactional(readOnly = true)
     public List<ViajeDTO> buscarPorUsuarioId(Integer idUsuario) {
         return viajeRepository.findByUsuarioIdUsuario(idUsuario).stream()
                 .map(this::convertirADTO)
@@ -87,6 +90,7 @@ public class ViajeServiceImpl implements ViajeService {
      * @return Lista de viajes del chofer
      */
     @Override
+    @Transactional(readOnly = true)
     public List<ViajeDTO> buscarPorChoferId(Integer idChofer) {
         return viajeRepository.findByChoferIdChofer(idChofer).stream()
                 .map(this::convertirADTO)

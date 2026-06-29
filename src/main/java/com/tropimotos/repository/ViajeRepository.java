@@ -6,9 +6,12 @@
 package com.tropimotos.repository;
 
 import com.tropimotos.entity.Viaje;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
+import java.util.Optional;
 
 /**
  *@Repository: Marca esta interfaz como un componente de repositorio de Spring
@@ -18,6 +21,14 @@ import java.util.List;
  */
 @Repository
 public interface ViajeRepository extends JpaRepository<Viaje, Integer> {
+
+    @Override
+    @EntityGraph(attributePaths = {"usuario", "chofer", "chofer.usuario", "vehiculo", "estadoViaje"})
+    List<Viaje> findAll();
+
+    @Override
+    @EntityGraph(attributePaths = {"usuario", "chofer", "chofer.usuario", "vehiculo", "estadoViaje"})
+    Optional<Viaje> findById(Integer id);
     
     /**
      * Busca todos los viajes solicitados por un usuario especifico
@@ -25,6 +36,7 @@ public interface ViajeRepository extends JpaRepository<Viaje, Integer> {
      * @param idUsuario ID del usuario cuyos viajes se buscan
      * @return Lista de viajes del usuario
      */
+    @EntityGraph(attributePaths = {"usuario", "chofer", "chofer.usuario", "vehiculo", "estadoViaje"})
     List<Viaje> findByUsuarioIdUsuario(Integer idUsuario);
     
     /**
@@ -33,6 +45,7 @@ public interface ViajeRepository extends JpaRepository<Viaje, Integer> {
      * @param idChofer ID del chofer cuyos viajes se buscan
      * @return Lista de viajes del chofer
      */
+    @EntityGraph(attributePaths = {"usuario", "chofer", "chofer.usuario", "vehiculo", "estadoViaje"})
     List<Viaje> findByChoferIdChofer(Integer idChofer);
     
     /**
@@ -41,5 +54,6 @@ public interface ViajeRepository extends JpaRepository<Viaje, Integer> {
      * @param idEstado ID del estado de viaje a filtrar
      * @return Lista de viajes con ese estado
      */
+    @EntityGraph(attributePaths = {"usuario", "chofer", "chofer.usuario", "vehiculo", "estadoViaje"})
     List<Viaje> findByEstadoViajeIdEstado(Integer idEstado);
 }
